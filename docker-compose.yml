@@ -1,0 +1,68 @@
+version: '3'
+
+services:
+
+  the-form-server:
+#    build:
+#      context: the-form-server
+    image: mbaluev/the-form-server:localhost
+    container_name: server
+    env_file:
+      - .env.server.local
+    networks:
+      - node-network
+    ports:
+      - "8081:8081"
+
+  the-form-client:
+    image: mbaluev/the-form-client:feature-v2
+    container_name: client
+    env_file:
+      - .env.client.local
+    networks:
+      - node-network
+    ports:
+      - "3000:3000"
+
+  the-form-client-v1:
+    image: mbaluev/the-form-client:feature-v1
+    container_name: client-v1
+    env_file:
+      - .env.client.local
+    networks:
+      - node-network
+    ports:
+      - "3100:3000"
+
+#  postgres:
+#    image: postgres
+#    container_name: postgres
+#    restart: always
+#    tty: true
+#    volumes:
+#      - ./postgres:/var/lib/postgresql/data
+#    environment:
+#      - POSTGRES_PASSWORD=sa
+#    ports:
+#      - "5432:5432"
+#    networks:
+#      - node-network
+
+  nginx:
+    build:
+      context: nginx
+    container_name: nginx
+    restart: always
+    tty: true
+    ports:
+      - "8000:80"
+    networks:
+      - node-network
+    depends_on:
+      - the-form-client
+      - the-form-client-v1
+      - the-form-server
+
+networks:
+  node-network:
+    driver: bridge

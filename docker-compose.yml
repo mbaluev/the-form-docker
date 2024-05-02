@@ -2,10 +2,21 @@ version: '3'
 
 services:
 
+  ftp:
+    image: delfer/alpine-ftp-server
+    container_name: ftp
+    env_file:
+      - .env.ftp.local
+    ports:
+      - "21:21"
+      - 21000-21010:21000-21010
+    volumes:
+      - ./files:/home/files
+
   the-form-server:
 #    build:
 #      context: the-form-server
-    image: mbaluev/the-form-server:localhost
+    image: mbaluev/the-form-server:ftp
     container_name: server
     env_file:
       - .env.server.local
@@ -13,6 +24,8 @@ services:
       - node-network
     ports:
       - "8081:8081"
+    depends_on:
+      - ftp
 
   the-form-client:
     image: mbaluev/the-form-client:feature-v2

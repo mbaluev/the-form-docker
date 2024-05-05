@@ -9,3 +9,5 @@
 .DS_Store
 yarn-error.log
 files
+backups
+postgres

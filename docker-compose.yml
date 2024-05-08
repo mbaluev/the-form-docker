@@ -44,7 +44,7 @@ services:
 #      - postgres
 
   the-form-client:
-    image: mbaluev/the-form-client:feature-v2
+    image: mbaluev/the-form-client:main
     container_name: client
     env_file:
       - .env.client

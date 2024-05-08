@@ -6,7 +6,7 @@ services:
     image: delfer/alpine-ftp-server
     container_name: ftp
     env_file:
-      - .env.ftp
+      - .env.ftp.local
     ports:
       - "21:21"
       - 21000-21010:21000-21010
@@ -19,7 +19,7 @@ services:
     restart: always
     tty: true
     env_file:
-      - .env.postgres
+      - .env.postgres.local
     expose:
       - "5433" # Publishes 5433 to other containers but NOT to host machine
     ports:
@@ -34,7 +34,7 @@ services:
     image: mbaluev/the-form-server:ftp
     container_name: server
     env_file:
-      - .env.server
+      - .env.server.local
     networks:
       - node-network
     ports:
@@ -47,7 +47,7 @@ services:
     image: mbaluev/the-form-client:feature-v2
     container_name: client
     env_file:
-      - .env.client
+      - .env.client.local
     networks:
       - node-network
     ports:

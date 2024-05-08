@@ -2,49 +2,49 @@ version: '3'
 
 services:
 
-#  ftp:
-#    image: delfer/alpine-ftp-server
-#    container_name: ftp
-#    env_file:
-#      - .env.ftp
-#    ports:
-#      - "21:21"
-#      - 21000-21010:21000-21010
-#    volumes:
-#      - ./files:/home/files
-#
-#  postgres:
-#    image: postgres
-#    container_name: postgres
-#    restart: always
-#    tty: true
-#    env_file:
-#      - .env.postgres
-#    expose:
-#      - "5433" # Publishes 5433 to other containers but NOT to host machine
-#    ports:
-#      - "5433:5433"
-#    volumes:
-#      - ./backups:/home/backups
-#    command: -p 5433
-#    networks:
-#      - node-network
-#
-#  the-form-server:
-#    image: mbaluev/the-form-server:ftp
-#    container_name: server
-#    env_file:
-#      - .env.server
-#    networks:
-#      - node-network
-#    ports:
-#      - "8081:8081"
-#    depends_on:
-#      - ftp
-#      - postgres
+  ftp:
+    image: delfer/alpine-ftp-server
+    container_name: ftp
+    env_file:
+      - .env.ftp
+    ports:
+      - "21:21"
+      - 21000-21010:21000-21010
+    volumes:
+      - ./files:/home/files
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    tty: true
+    env_file:
+      - .env.postgres
+    expose:
+      - "5433" # Publishes 5433 to other containers but NOT to host machine
+    ports:
+      - "5433:5433"
+    volumes:
+      - ./backups:/home/backups
+    command: -p 5433
+    networks:
+      - node-network
+
+  the-form-server:
+    image: mbaluev/the-form-server:ftp
+    container_name: server
+    env_file:
+      - .env.server
+    networks:
+      - node-network
+    ports:
+      - "8081:8081"
+    depends_on:
+      - ftp
+      - postgres
 
   the-form-client:
-    image: mbaluev/the-form-client:main
+    image: mbaluev/the-form-client:feature-v2
     container_name: client
     env_file:
       - .env.client
@@ -65,7 +65,7 @@ services:
       - node-network
     depends_on:
       - the-form-client
-#      - the-form-server
+      - the-form-server
 
 networks:
   node-network:

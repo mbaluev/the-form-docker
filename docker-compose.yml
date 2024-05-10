@@ -2,9 +2,9 @@ version: '3'
 
 services:
 
-  the-form-postgres:
+  postgres:
     image: postgres
-    container_name: the-form-postgres
+    container_name: postgres
     restart: always
     tty: true
     env_file:
@@ -21,10 +21,10 @@ services:
     networks:
       - node-network
 
-  the-form-server:
+  server:
     image: mbaluev/the-form-server:latest
     platform: linux/x86_64
-    container_name: the-form-server
+    container_name: server
     env_file:
       - .env.server
       - .env.server.local
@@ -35,19 +35,19 @@ services:
     volumes:
       - ./files:/home/files
 
-  the-form-client:
+  client:
     image: mbaluev/the-form-client:feature-v2
     platform: linux/x86_64
-    container_name: the-form-client
+    container_name: client
     networks:
       - node-network
     ports:
       - "3000:3000"
 
-  the-form-nginx:
+  nginx:
     build:
       context: nginx
-    container_name: the-form-nginx
+    container_name: nginx
     restart: always
     tty: true
     ports:
@@ -55,9 +55,9 @@ services:
     networks:
       - node-network
     depends_on:
-      - the-form-client
-      - the-form-server
-      - the-form-postgres
+      - client
+      - server
+      - postgres
 
 networks:
   node-network:

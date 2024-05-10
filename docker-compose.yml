@@ -25,9 +25,6 @@ services:
     image: mbaluev/the-form-server:latest
     platform: linux/x86_64
     container_name: server
-    env_file:
-      - .env.server
-      - .env.server.local
     networks:
       - node-network
     ports:

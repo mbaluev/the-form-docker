@@ -41,9 +41,6 @@ services:
     image: mbaluev/the-form-client:latest
     platform: linux/x86_64
     container_name: client
-    env_file:
-      - .env.client
-      - .env.client.local
     networks:
       - node-network
     ports:

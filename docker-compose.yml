@@ -8,6 +8,7 @@ services:
     restart: always
     tty: true
     env_file:
+      - .env.postgres
       - .env.postgres.local
     expose:
       - "5433"
@@ -24,6 +25,7 @@ services:
     image: mbaluev/the-form-server:latest
     container_name: server
     env_file:
+      - .env.server
       - .env.server.local
     networks:
       - node-network
@@ -32,13 +34,13 @@ services:
     volumes:
       - ./files:/home/files
     depends_on:
-      - ftp
       - postgres
 
   the-form-client:
     image: mbaluev/the-form-client:feature-v2
     container_name: client
     env_file:
+      - .env.client
       - .env.client.local
     networks:
       - node-network

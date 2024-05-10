@@ -33,6 +33,15 @@ services:
     volumes:
       - ./files:/home/files
 
+  client-v1:
+    image: mbaluev/the-form-client:feature-v1
+    platform: linux/x86_64
+    container_name: client-v1
+    networks:
+      - node-network
+    ports:
+      - "3100:3000"
+
   client:
     image: mbaluev/the-form-client:feature-v2
     platform: linux/x86_64
@@ -54,6 +63,7 @@ services:
       - node-network
     depends_on:
       - client
+      - client-v1
       - server
       - postgres
 

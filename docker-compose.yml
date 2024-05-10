@@ -8,7 +8,6 @@ services:
     restart: always
     tty: true
     env_file:
-      - .env.postgres
       - .env.postgres.local
     expose:
       - "5433"
@@ -25,6 +24,8 @@ services:
     image: mbaluev/the-form-server:latest
     platform: linux/x86_64
     container_name: server
+    env_file:
+      - .env.server.local
     networks:
       - node-network
     ports:

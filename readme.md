@@ -1,8 +1,5 @@
-# the-form docker compose up
-## prerequisites
-### required:
+# The Form docker compose up
+## Environment variables:
 1. `.env.postgres.local`
-### optional:
-by default "uses" `development` environment
-1. `.env.client.local`
-2. `.env.server.local`
+2. `.env.client.local`
+3. `.env.server.local`

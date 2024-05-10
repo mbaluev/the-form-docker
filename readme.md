@@ -9,4 +9,4 @@
 ### Separate commands
 1. `docker-compose down --rmi all` - stop all containers
 2. `docker-compose pull` - pull all images
-3. `docker-compose up -d` - up containers
+3. `docker-compose up --build -d` - up containers

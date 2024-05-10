@@ -38,7 +38,7 @@ services:
       - postgres
 
   the-form-client:
-    image: mbaluev/the-form-client:latest
+    image: mbaluev/the-form-client:feature-v2
     platform: linux/x86_64
     container_name: client
     env_file:
